@@ -8,6 +8,7 @@ import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.MinecraftClient
 import net.minecraft.text.Text
 import org.slf4j.LoggerFactory
+import java.util.*
 
 
 class SmolhudClient : ClientModInitializer {
@@ -23,22 +24,36 @@ class SmolhudClient : ClientModInitializer {
 
 
 
-
     companion object {
         var client = MinecraftClient.getInstance()
 
+        val defaultConfig = mapOf(
+            "coords" to true,
+            "coordsLabels" to false,
+
+            "newline" to null,
+
+            "surroundingEnemies" to false,
+            "customPositions" to true,
+
+            "newline" to null,
+
+            "displayMobs" to true,
+            "mobLabelLocationX" to 0,
+            "mobLabelLocationY" to 0,
+            "newline" to null,
+
+            "displayPlayers" to true,
+            "playerLabelLocationX" to 0,
+            "playerLabelLocationY" to 0
+        )
+
         var CONFIG: SimpleConfig = SimpleConfig.of("smolhud").provider({
-            """
-            # Smolhud configuration file
-            # Format: key=value
-            coords=true
-            coordsLabels=false
-            surroundingEnemies=false
-            """
+
+            generateDefaultConfig(defaultConfig)
                 .trimIndent()}).request()
 
         val HudRenderer = RenderManager()
-
         val version = FabricLoader.getInstance().getModContainer("smolhud")?.get()?.metadata?.version?.toString()
 
         val logger = LoggerFactory.getLogger("Smolhud")
@@ -51,10 +66,28 @@ class SmolhudClient : ClientModInitializer {
             MinecraftClient.getInstance().player?.sendMessage(createReturnMessage(message), false)
         }
 
+        fun generateDefaultConfig(defaultConfig: Map<String, Any?>): String {
+            val defaults = StringBuilder()
+            for ((key, value) in defaultConfig) {
+                if (key == "newline") {
+                    defaults.append("\n")
+                    continue
+                }
+                defaults.append(key).append("=").append(value).append("\n")
+            }
+
+            return defaults.toString()
+        }
         fun reloadConfig() {
             CONFIG.reloadConfig()
             HudRenderer.coords.coordsEnabled = CONFIG.getOrDefault("coords", true)
             HudRenderer.coords.coordsLabelsEnabled = CONFIG.getOrDefault("coordsLabels", false)
+            HudRenderer.surroundingEnemies.surroundingEnemiesEnabled = CONFIG.getOrDefault("surroundingEnemies", false)
+            HudRenderer.surroundingEnemies.displayMobs = CONFIG.getOrDefault("displayMobs", true)
+            HudRenderer.surroundingEnemies.displayPlayers = CONFIG.getOrDefault("displayPlayers", true)
+            HudRenderer.surroundingEnemies.reloadPositions()
+//            HudRenderer.surroundingEnemies.xpos = CONFIG.getOrDefault("playerLabelLocationX", 0)
+//            HudRenderer.surroundingEnemies.ypos = CONFIG.getOrDefault("playerLabelLocationY", 0)
         }
 
         fun createReturnMessage(vararg messages: Any): Text {

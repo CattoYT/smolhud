@@ -10,7 +10,7 @@ import net.minecraft.client.gui.DrawContext
 import kotlin.collections.getOrDefault
 
 class Coords : HudRenderCallback {
-    var textRenderer: TextRenderer? = client.textRenderer
+    var textRenderer: TextRenderer? = null
     var coordsEnabled = SmolhudClient.CONFIG.getOrDefault("coords", true)
     var coordsLabelsEnabled = SmolhudClient.CONFIG.getOrDefault("coordsLabels", false)
 
@@ -20,7 +20,6 @@ class Coords : HudRenderCallback {
         }
         if (textRenderer == null) {
             this.textRenderer = client.textRenderer
-            SmolhudClient.logger.error("TextRenderer is null, cannot render coordinates.")
         }
 
         var posX = parseCoords(client.player?.pos?.x.toString())

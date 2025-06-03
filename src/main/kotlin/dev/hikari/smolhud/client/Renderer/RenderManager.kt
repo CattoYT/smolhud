@@ -11,7 +11,7 @@ class RenderManager {
 
         HudRenderCallback.EVENT.register(coords)
 
-        //HudRenderCallback.EVENT.register(surroundingEnemies)
+        HudRenderCallback.EVENT.register(surroundingEnemies)
 
 
     }

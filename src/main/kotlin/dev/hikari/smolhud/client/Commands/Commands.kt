@@ -38,6 +38,8 @@ class Commands {
                                         Log("Should be: ${SmolhudClient.CONFIG.getOrDefault("coords", null)}")
                                         Log("Coords labels enabled: ${HudRenderer.coords.coordsLabelsEnabled}")
                                         Log("Should be: ${SmolhudClient.CONFIG.getOrDefault("coordsLabels", null)}")
+                                        Log("mobXPos: ${HudRenderer.surroundingEnemies.mobXPos}")
+                                        Log("mobYPos: ${HudRenderer.surroundingEnemies.mobYPos}")
                                     }
                                     "enemies" -> {
                                         Log("${HudRenderer.surroundingEnemies.getSurroundingEnemies()}")
@@ -48,8 +50,6 @@ class Commands {
                                 }
                                 0
                             }
-
-
             ))
         })
     }
