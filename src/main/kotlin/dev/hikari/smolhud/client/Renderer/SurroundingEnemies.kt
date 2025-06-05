@@ -45,13 +45,13 @@ class SurroundingEnemies  : HudRenderCallback {
             SmolhudClient.logger.error("TextRenderer is null, cannot render coordinates.")
 
         }
-        //TODO: config player location, mob is done
+        //TODO: config name colours so i can .friend
         if (!players.isEmpty() && displayPlayers) {
-            var yOffset = 20
+            var yOffset = 10
 
-            drawContext?.drawTextWithShadow(textRenderer, text.setStyle(text.style.withUnderline(true)), 10, 20, 0xFFFFFF, )
+            drawContext?.drawTextWithShadow(textRenderer, text.setStyle(text.style.withUnderline(true)), playerXPos, playerYPos, 0xFFFFFF, )
             for (player in players) {
-                drawContext?.drawTextWithShadow(textRenderer, player, 10, 10 + yOffset, 0xFFFFFF)
+                drawContext?.drawTextWithShadow(textRenderer, player, playerXPos, playerYPos + yOffset, 0xFFFFFF)
                 yOffset += 10
             }
         }
@@ -88,7 +88,7 @@ class SurroundingEnemies  : HudRenderCallback {
         playerYPos = if (CONFIG.getOrDefault("customPlayerPositions", false)) CONFIG.getOrDefault(
             "playerLabelLocationY",
             0
-        ) else client.window.scaledHeight - 10
+        ) else 10
         mobXPos = if (CONFIG.getOrDefault("customMobPositions", false)) CONFIG.getOrDefault(
             "mobLabelLocationX",
             0
