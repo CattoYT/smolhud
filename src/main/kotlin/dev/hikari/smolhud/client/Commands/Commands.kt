@@ -15,7 +15,7 @@ import net.minecraft.server.command.ServerCommandSource
 class Commands {
     fun registerCommands() {
         modInfo()
-    }
+    } // TODO: Make the commands allow for using @ as the prefix cuz / doesnt work on servers
     fun modInfo() {
         CommandRegistrationCallback.EVENT.register(CommandRegistrationCallback { dispatcher: CommandDispatcher<ServerCommandSource>, _, _ ->
             dispatcher.register(

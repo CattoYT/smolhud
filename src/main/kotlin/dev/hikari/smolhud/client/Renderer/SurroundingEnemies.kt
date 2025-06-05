@@ -5,27 +5,19 @@ import dev.hikari.smolhud.client.SmolhudClient.Companion.CONFIG
 import dev.hikari.smolhud.client.SmolhudClient.Companion.client
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.ServerStarted
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.font.TextRenderer
 import net.minecraft.client.gui.DrawContext
 import net.minecraft.entity.mob.Monster
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.server.MinecraftServer
-
+import net.minecraft.text.Text
+import net.minecraft.util.Formatting
 
 class SurroundingEnemies  : HudRenderCallback {
     init {
         ServerLifecycleEvents.SERVER_STARTING.register(ServerLifecycleEvents.ServerStarting {
-            // replace them when loading in
-            mobXPos = if (CONFIG.getOrDefault("customMobPositions", false)) CONFIG.getOrDefault(
-                "mobLabelLocationX",
-                0
-            ) else MinecraftClient.getInstance().window.scaledWidth / 2 + 120
-            mobYPos = if (CONFIG.getOrDefault("customMobPositions", false)) CONFIG.getOrDefault(
-                "mobLabelLocationY",
-                0
-            ) else MinecraftClient.getInstance().window.scaledHeight / 2
+            // Reload positions when the server starts
+            reloadPositions()
 
         })
     }
@@ -40,7 +32,9 @@ class SurroundingEnemies  : HudRenderCallback {
     var playerXPos = 0
     var playerYPos = 0
 
-    override fun onHudRender(p0: DrawContext?, p1: Float) {
+    var text = Text.literal("Surrounding Enemies:")
+
+    override fun onHudRender(drawContext: DrawContext?, p1: Float) {
         if (!surroundingEnemiesEnabled) {
             return
         }
@@ -51,19 +45,18 @@ class SurroundingEnemies  : HudRenderCallback {
             SmolhudClient.logger.error("TextRenderer is null, cannot render coordinates.")
 
         }
-        if (players.isEmpty() && monsters.isEmpty()) {
-            return
-        }
         //TODO: config player location, mob is done
-        if (displayPlayers) {
+        if (!players.isEmpty() && displayPlayers) {
             var yOffset = 20
+
+            drawContext?.drawTextWithShadow(textRenderer, text.setStyle(text.style.withUnderline(true)), 10, 20, 0xFFFFFF, )
             for (player in players) {
-                p0?.drawTextWithShadow(textRenderer, player, 10, 10 + yOffset, 0xFFFFFF)
+                drawContext?.drawTextWithShadow(textRenderer, player, 10, 10 + yOffset, 0xFFFFFF)
                 yOffset += 10
             }
         }
-        if (displayMobs) {
-            p0?.drawCenteredTextWithShadow(textRenderer, "Mobs: ${monsters.size}", mobXPos, mobYPos, 0xFF0000)
+        if (!monsters.isEmpty() && displayMobs) {
+            drawContext?.drawCenteredTextWithShadow(textRenderer, "Mobs: ${monsters.size}", mobXPos, mobYPos, 0xFF0000)
         }
 
 
