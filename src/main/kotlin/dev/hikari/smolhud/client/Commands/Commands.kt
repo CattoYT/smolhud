@@ -2,13 +2,16 @@ package dev.hikari.smolhud.client.Commands
 
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.arguments.StringArgumentType
+import dev.hikari.smolhud.client.Renderer.RenderManager
 import dev.hikari.smolhud.client.SmolhudClient
 import dev.hikari.smolhud.client.SmolhudClient.Companion.HudRenderer
 import dev.hikari.smolhud.client.SmolhudClient.Companion.Log
+import dev.hikari.smolhud.client.SmolhudClient.Companion.client
 import dev.hikari.smolhud.client.Utils.Friends
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.util.Formatting
 
 
@@ -140,24 +143,24 @@ class Commands {
                     .then(
                         ClientCommandManager.literal("debug")
                             .executes { context ->
-                                Log("Debugging Smolhud...")
-                                Log("Coords enabled: ${HudRenderer.coords.coordsEnabled}")
-                                Log("Coords labels enabled: ${HudRenderer.coords.coordsLabelsEnabled}")
-                                Log("Surrounding enemies enabled: ${HudRenderer.surroundingEnemies.surroundingEnemiesEnabled}")
-                                Log("Display mobs: ${HudRenderer.surroundingEnemies.displayMobs}")
-                                Log("Display players: ${HudRenderer.surroundingEnemies.displayPlayers}")
+                                Log("hi this doesn't do anything lol")
+//                                Log("Coords enabled: ${HudRenderer.coords.coordsEnabled}")
+//                                Log("Coords labels enabled: ${HudRenderer.coords.coordsLabelsEnabled}")
+//                                Log("Surrounding enemies enabled: ${HudRenderer.surroundingEnemies.surroundingEnemiesEnabled}")
+//                                Log("Display mobs: ${HudRenderer.surroundingEnemies.displayMobs}")
+//                                Log("Display players: ${HudRenderer.surroundingEnemies.displayPlayers}")
                                 0
                             }
                     )
-                    .then(
-                        ClientCommandManager.literal("enemies")
-                            .executes { context ->
-                                val (players, monsters) = HudRenderer.surroundingEnemies.getSurroundingEnemies()
-                                Log("Surrounding players: ${players.joinToString(", ")}")
-                                Log("Surrounding monsters: ${monsters.joinToString(", ")}")
-                                0
-                            }
-                    )
+//                    .then(
+//                        ClientCommandManager.literal("enemies")
+//                            .executes { context ->
+//                                val (players, monsters) = HudRenderer.surroundingEnemies.getSurroundingEnemies()
+//                                Log("Surrounding players: ${players.joinToString(", ")}")
+//                                Log("Surrounding monsters: ${monsters.joinToString(", ")}")
+//                                0
+//                            }
+//                    )
 
 
             )
