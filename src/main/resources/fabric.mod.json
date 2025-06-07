@@ -7,7 +7,7 @@
   "authors": ["Hikari"],
   "contact": {},
   "license": "GPL-3.0",
-  "icon": "assets/smolhud/icon.png",
+  "icon": "icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [

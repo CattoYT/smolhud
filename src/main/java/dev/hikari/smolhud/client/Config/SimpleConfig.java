@@ -105,7 +105,7 @@ public class SimpleConfig {
      */
     public static ConfigRequest of( String filename ) {
         Path path = FabricLoader.getInstance().getConfigDir();
-        return new ConfigRequest( path.resolve( filename + ".properties" ).toFile(), filename );
+        return new ConfigRequest( path.resolve( "smolhud/"+filename + ".properties" ).toFile(), filename );
     }
 
     private void createConfig() throws IOException {

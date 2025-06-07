@@ -3,6 +3,8 @@ package dev.hikari.smolhud.client
 import dev.hikari.smolhud.client.Commands.Commands
 import dev.hikari.smolhud.client.Config.SimpleConfig
 import dev.hikari.smolhud.client.Renderer.RenderManager
+import dev.hikari.smolhud.client.Utils.Friends.Companion.loadFriends
+import dev.hikari.smolhud.client.Utils.Friends.Companion.saveFriends
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.MinecraftClient
@@ -19,7 +21,12 @@ class SmolhudClient : ClientModInitializer {
         HudRenderer.registerRenderModules()
         Commands().Commands()
         client = MinecraftClient.getInstance()
-
+        loadFriends()
+        Runtime.getRuntime().addShutdownHook(Thread {
+            // Do your cleanup here
+            logger.info("Shutting down Smolhud client")
+            saveFriends()
+        })
     }
 
 
@@ -36,12 +43,12 @@ class SmolhudClient : ClientModInitializer {
             "surroundingEnemies" to false,
             "customPositions" to true,
 
-            "newline" to null,
+            "newline2" to null,
 
             "displayMobs" to true,
             "mobLabelLocationX" to 0,
             "mobLabelLocationY" to 0,
-            "newline" to null,
+            "newline3" to null,
 
             "displayPlayers" to true,
             "playerLabelLocationX" to 0,
@@ -69,7 +76,7 @@ class SmolhudClient : ClientModInitializer {
         fun generateDefaultConfig(defaultConfig: Map<String, Any?>): String {
             val defaults = StringBuilder()
             for ((key, value) in defaultConfig) {
-                if (key == "newline") {
+                if (key.contains("newline")) {
                     defaults.append("\n")
                     continue
                 }

@@ -46,7 +46,6 @@ class SurroundingEnemies  : HudRenderCallback {
             SmolhudClient.logger.error("TextRenderer is null, cannot render coordinates.")
 
         }
-        //TODO: config name colours so i can .friend
         if (!players.isEmpty() && displayPlayers) {
             var yOffset = 10
 
