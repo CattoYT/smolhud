@@ -100,7 +100,7 @@ class SurroundingEnemies  : HudRenderCallback {
         mobXPos = if (CONFIG.getOrDefault("customMobPositions", false)) CONFIG.getOrDefault(
             "mobLabelLocationX",
             0
-        ) else client.window.scaledWidth / 2 + 110
+        ) else client.window.scaledWidth / 2 + 115
         mobYPos = if (CONFIG.getOrDefault("customMobPositions", false)) CONFIG.getOrDefault(
             "mobLabelLocationY",
             0

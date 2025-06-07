@@ -144,23 +144,23 @@ class Commands {
                         ClientCommandManager.literal("debug")
                             .executes { context ->
                                 Log("hi this doesn't do anything lol")
-//                                Log("Coords enabled: ${HudRenderer.coords.coordsEnabled}")
-//                                Log("Coords labels enabled: ${HudRenderer.coords.coordsLabelsEnabled}")
-//                                Log("Surrounding enemies enabled: ${HudRenderer.surroundingEnemies.surroundingEnemiesEnabled}")
-//                                Log("Display mobs: ${HudRenderer.surroundingEnemies.displayMobs}")
-//                                Log("Display players: ${HudRenderer.surroundingEnemies.displayPlayers}")
+                                Log("Coords enabled: ${HudRenderer.coords.coordsEnabled}")
+                                Log("Coords labels enabled: ${HudRenderer.coords.coordsLabelsEnabled}")
+                                Log("Surrounding enemies enabled: ${HudRenderer.surroundingEnemies.surroundingEnemiesEnabled}")
+                                Log("Display mobs: ${HudRenderer.surroundingEnemies.displayMobs}")
+                                Log("Display players: ${HudRenderer.surroundingEnemies.displayPlayers}")
                                 0
                             }
                     )
-//                    .then(
-//                        ClientCommandManager.literal("enemies")
-//                            .executes { context ->
-//                                val (players, monsters) = HudRenderer.surroundingEnemies.getSurroundingEnemies()
-//                                Log("Surrounding players: ${players.joinToString(", ")}")
-//                                Log("Surrounding monsters: ${monsters.joinToString(", ")}")
-//                                0
-//                            }
-//                    )
+                    .then(
+                        ClientCommandManager.literal("enemiesdebug")
+                            .executes { context ->
+                                val (players, monsters) = HudRenderer.surroundingEnemies.getSurroundingEnemies()
+                                Log("Surrounding players: ${players.joinToString(", ")}")
+                                Log("Surrounding monsters: ${monsters.joinToString(", ")}")
+                                0
+                            }
+                    )
 
 
             )

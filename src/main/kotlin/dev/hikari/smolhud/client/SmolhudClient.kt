@@ -40,19 +40,17 @@ class SmolhudClient : ClientModInitializer {
 
             "newline" to null,
 
-            "surroundingEnemies" to false,
-            "customPositions" to true,
-
-            "newline2" to null,
 
             "displayMobs" to true,
             "mobLabelLocationX" to 0,
             "mobLabelLocationY" to 0,
+            "customMobPositions" to false,
             "newline3" to null,
 
             "displayPlayers" to true,
             "playerLabelLocationX" to 0,
-            "playerLabelLocationY" to 0
+            "playerLabelLocationY" to 0,
+            "customPlayerPositions" to false,
         )
 
         var CONFIG: SimpleConfig = SimpleConfig.of("smolhud").provider({
@@ -98,7 +96,7 @@ class SmolhudClient : ClientModInitializer {
         }
 
         fun createReturnMessage(vararg messages: Any): Text {
-            val combinedText = Text.literal("(§3SmolHud§f) ")
+            val combinedText = Text.literal("(§dSmolHud§f) ")
             messages.forEach { text ->
                 when (text) {
                     is String -> combinedText.append(Text.literal(text))
