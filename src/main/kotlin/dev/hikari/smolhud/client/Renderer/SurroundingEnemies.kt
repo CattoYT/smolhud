@@ -3,6 +3,7 @@ package dev.hikari.smolhud.client.Renderer
 import dev.hikari.smolhud.client.SmolhudClient
 import dev.hikari.smolhud.client.SmolhudClient.Companion.CONFIG
 import dev.hikari.smolhud.client.SmolhudClient.Companion.client
+import dev.hikari.smolhud.client.Utils.Friends
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.minecraft.client.MinecraftClient
@@ -51,7 +52,15 @@ class SurroundingEnemies  : HudRenderCallback {
 
             drawContext?.drawTextWithShadow(textRenderer, text.setStyle(text.style.withUnderline(true)), playerXPos, playerYPos, 0xFFFFFF, )
             for (player in players) {
-                drawContext?.drawTextWithShadow(textRenderer, player, playerXPos, playerYPos + yOffset, 0xFFFFFF)
+                if (Friends.isFriend(player)) {
+                    drawContext?.drawTextWithShadow(textRenderer, player, playerXPos, playerYPos + yOffset, 0x00FF00)
+                }
+                else if (Friends.isHostile(player)) {
+                    drawContext?.drawTextWithShadow(textRenderer, player, playerXPos, playerYPos + yOffset, 0xFF0000)
+                }
+                else {
+                    drawContext?.drawTextWithShadow(textRenderer, player, playerXPos, playerYPos + yOffset, 0xFFFFFF)
+                }
                 yOffset += 10
             }
         }

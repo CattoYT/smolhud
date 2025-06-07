@@ -17,8 +17,8 @@ class SmolhudClient : ClientModInitializer {
         logger.info("Initializing Smolhud client")
 
         HudRenderer.registerRenderModules()
-        Commands().registerCommands()
-
+        Commands().Commands()
+        client = MinecraftClient.getInstance()
 
     }
 
